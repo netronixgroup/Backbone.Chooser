@@ -20,7 +20,7 @@ do (Backbone) ->
 
       @chosen = true
       @model.set chosen: true, options
-      @model.trigger "model:chosen", @model unless options.silent is true
+      @model.trigger "model:chosen", @model, options unless options.silent is true
       @model.collection?.choose?(@model, options)
 
     unchoose: (options = {}) ->
@@ -28,11 +28,11 @@ do (Backbone) ->
 
       @chosen = false
       @model.set chosen: false, options
-      @model.trigger "model:unchosen", @model unless options.silent is true
+      @model.trigger "model:unchosen", @model, options unless options.silent is true
       @model.collection?.unchoose?(@model, options)
 
-    toggleChoose: ->
-      if @isChosen() then @unchoose() else @choose()
+    toggleChoose: (options={}) ->
+      if @isChosen() then @unchoose(options) else @choose(options)
 
   class BaseChooser
     constructor: (collection) ->
@@ -69,7 +69,7 @@ do (Backbone) ->
       return if options.silent is true
 
       event or= @_getEvent()
-      @collection.trigger event, @_eventArg()
+      @collection.trigger event, @_eventArg(), options
 
     chooseById: (id, options = {}) ->
       model = @collection.get(id)
