@@ -65,11 +65,11 @@ var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; 
       return (_ref = this.model.collection) != null ? typeof _ref.unchoose === "function" ? _ref.unchoose(this.model, options) : void 0 : void 0;
     };
 
-    Chooser.prototype.toggleChoose = function() {
+    Chooser.prototype.toggleChoose = function(options) {
       if (this.isChosen()) {
-        return this.unchoose();
+        return this.unchoose(options);
       } else {
-        return this.choose();
+        return this.choose(options);
       }
     };
 
